@@ -381,7 +381,7 @@ while read -r line; do
     table=$(echo "$line" | cut -d" " -f1)
     echo "$line" | cut -d" " -f5 | grep -qi "SCHEMAONLY"
     test $? -eq 0 && DATA_TABLES+=($table)
-done < <(sed '0,/^__DATA__$/d' "${BASH_SOURCE[*]}" | tr -s " ")
+done <<< "$(sed '0,/^__DATA__$/d' "${BASH_SOURCE[*]}" | tr -s " ")"
 
 # paranoid check
 if [ ${#DATA_TABLES[@]} -lt 5 ]; then
